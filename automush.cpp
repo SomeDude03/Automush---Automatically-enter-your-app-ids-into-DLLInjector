@@ -12,9 +12,11 @@ using namespace std;
 int main()
 {
 	
-	// Open automush
-	ifstream inputFile("automush.txt"); // Open the text file for reading
-	if (inputFile.is_open()) // Check if the file was successfully opened
+	// Open automush.txt
+	ifstream inputFile("automush.txt");
+	
+	// Check if automush.txt was successfully opened
+	if (inputFile.is_open())
 	{
 		string line;
 		int lineCount = 0;
@@ -22,6 +24,8 @@ int main()
 		while (getline(inputFile, line))
 		{
 			lineCount++;
+			
+			// Error message
 			if(lineCount > 149)
 			{
 				MessageBox(NULL,"You must have less than 149 app ids in automush.txt", "Error!", MB_OK);
@@ -38,6 +42,8 @@ int main()
 			// Close the file after reading
 			configFile.close();
 		}
+		
+		// Error message
 		else
 		{
 			MessageBox(NULL,"Failed to open automush.ini", "Error!", MB_OK);
@@ -100,15 +106,13 @@ int main()
 			// Input the enter key
 			input.ki.wVk = VK_RETURN;
 			SendInput(1, &input, sizeof(INPUT));
-			
-			// Wait
-			// Sleep(1);
 		}
 		
 		// Close the file after reading
 		inputFile.close();
 	}
 	
+	// Error message
 	else
 	{
 		MessageBox(NULL,"Failed to open automush.txt", "Error!", MB_OK);
