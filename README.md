@@ -1,3 +1,2 @@
 # Automush
-This is a simple program to automatically enter your Steam app ids into DLLInjector.
-Just enter them into automush.txt and run the exe.
+This is a simple program to store and automatically enter your Steam app ids into DLLInjector. No longer do you need to re-enter all of your app ids just to add one more game.
