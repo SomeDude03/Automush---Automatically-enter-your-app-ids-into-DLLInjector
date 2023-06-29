@@ -7,14 +7,53 @@
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include <tlhelp32.h>
 using namespace std;
+
+bool isProcessRunning(const string& processName)
+	{
+		HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnapshot == INVALID_HANDLE_VALUE)
+		{
+			return false;
+		}
+		PROCESSENTRY32 pe32;
+		pe32.dwSize = sizeof(PROCESSENTRY32);
+		if (!Process32First(hSnapshot, &pe32))
+		{
+			CloseHandle(hSnapshot);
+			return false;
+		}
+		do
+		{
+			if (string(pe32.szExeFile) == processName)
+			{
+				CloseHandle(hSnapshot);
+				return true;
+			}
+		} while (Process32Next(hSnapshot, &pe32));
+		
+		CloseHandle(hSnapshot);
+		return false;
+		}
 
 int main()
 {
+	if (isProcessRunning("DLLInjector.exe"))
+	{
+		MessageBox(NULL,"DLLInjector is already running.", "Error!", MB_OK);
+		return 0;
+	}
+	
+	if (isProcessRunning("steam.exe"))
+	{
+		MessageBox(NULL,"Close Steam before running Automush.", "Error!", MB_OK);
+		return 0;
+	}
 	
 	// Open automush.txt
 	ifstream inputFile("automush.txt");
-	
+
 	// Check if automush.txt was successfully opened
 	if (inputFile.is_open())
 	{
