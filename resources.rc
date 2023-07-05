@@ -1,0 +1,8 @@
+#ifndef _resource_rc
+#define _resource_rc
+#define IDI_AUTOMUSH 101
+
+MAINICON ICON "automush.ico"
+IDI_AUTOMUSH ICON "automush.ico"
+
+#endif // _resource_rc
